@@ -1,0 +1,21 @@
+
+$(df -gt /home)
+
+cut -d: -f10
+
+echo "Pls enter the size  Ex: +1G,-2G,+1M"
+read size
+echo "Pls enter the Filessytem Ex: /u01/oradbf03"
+read filesystem
+chfs -a size=<> <>
+
+echo "Pls enter the Filessytem Ex: /u01/oradbf03"
+read input
+echo "You selected partition : $input"
+LV=$(df -gt $input | grep -v 'Filesystem' | awk ' { print $1 }'| cut -c 6-)
+lsvg $(lslv $LV | grep -i VOLUME | cut -d':' -f3) | grep -i "FREE PPs" | cut -d':' -f3
+df -h $input
+echo "Enter size to add, to $partition e.g. Ex: +1G,-2G,+1M:"
+read size
+echo "You choose to increase file $input by $size"
+lsvg $(lslv fslv08 | grep -i VOLUME | cut -d':' -f3) | grep -i "FREE PPs" | cut -d':' -f3
