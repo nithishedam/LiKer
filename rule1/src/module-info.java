@@ -1,0 +1,2 @@
+module rule1 {
+}
