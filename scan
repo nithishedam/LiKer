@@ -1,0 +1,10 @@
+
+echo 1>/sys/class/block/sdc/device/rescan
+pvs
+fdisk -l | grep /dev/sdc
+pvresize /dev/sdc
+pvs
+df -hP
+lvextend -r -L +500G /dev/mapper/flex3pddg-vol01
+df -h /data/oradata/flex3pd
+resize2fs /dev/mapper/flex3pddg-vol01
