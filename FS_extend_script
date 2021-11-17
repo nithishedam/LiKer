@@ -19,3 +19,8 @@ echo "Enter size to add, to $partition e.g. Ex: +1G,-2G,+1M:"
 read size
 echo "You choose to increase file $input by $size"
 lsvg $(lslv fslv08 | grep -i VOLUME | cut -d':' -f3) | grep -i "FREE PPs" | cut -d':' -f3
+
+
+
+cat /etc/host
+cat /etc/resolv.conf
