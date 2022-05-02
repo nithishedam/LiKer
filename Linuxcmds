@@ -1,0 +1,3 @@
+cat /etc/hosts
+cat /etc/resolv.conf
+cat /etc/nsswitch.conf

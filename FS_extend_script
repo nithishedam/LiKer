@@ -1,3 +1,6 @@
+#!/bin/bash
+##FS expansion on AIX Systems
+
 
 $(df -gt /home)
 
@@ -22,5 +25,6 @@ lsvg $(lslv fslv08 | grep -i VOLUME | cut -d':' -f3) | grep -i "FREE PPs" | cut 
 
 
 
-cat /etc/host
+cat /etc/hosts
 cat /etc/resolv.conf
+cat /etc/nsswitch.conf
