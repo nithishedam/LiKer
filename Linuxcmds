@@ -1,3 +1,25 @@
+#!/bin/bash
+##Misc commands 
+
+awk -F: '{print $1}' /etc/passwd
 cat /etc/hosts
 cat /etc/resolv.conf
 cat /etc/nsswitch.conf
+
+##Network##
+cat /etc/sysconfig/network
+cat /etec/sysconfig/network-scripts/ens-th0
+
+
+netstat -tupln | grep listen
+find / -name '.core' -mtime +2 -delete
+
+
+##SAR##
+
+sar -r 1 2
+sar -r -f /var/log/sa/sa24
+sar -u 1 2
+sar -u
+sar -P ALL
+
