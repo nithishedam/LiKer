@@ -8,3 +8,17 @@ df -hP
 lvextend -r -L +500G /dev/mapper/flex3pddg-vol01
 df -h /data/oradata/flex3pd
 resize2fs /dev/mapper/flex3pddg-vol01
+
+-----------------------------------------------
+for user in $(<)
+do
+useradd -m -d /home/$user -s /bin/bash $user
+pass=`tr -dc 'A-Za-z0-9&@%*#' </dev/urandom | head -c 8`
+echo $pass
+echo "$user:$pass" | sudo chpasswd
+chage -d 0 $user
+if [ "$1" == "root" ]
+then
+echo "$user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/90-cloud-init-users
+fi
+chage -m 1 -M 90 $user
