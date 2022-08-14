@@ -1,0 +1,34 @@
+
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,Platform,PrivateIpAddress]' --output table
+
+aws ec2 describe-instances --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value |[0], InstanceId,\
+Placement.AvailabilityZone, InstanceType, LaunchTime, State.Name, PrivateIpAddress]' --region eu-west-1 --profile=leap-loadtest --output table > lep.txt
+
+aws ec2 describe-instances --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value |[0], InstanceId,\
+Platform, Placement.AvailabilityZone, InstanceType, LaunchTime, KeyName, State.Name, PrivateIpAddress]' --region eu-west-1 --output table
+
+aws ec2 start-instances --instance-ids i-026e47d397410c41 i-07a97887803910e3
+
+
+ELB
+----
+aws elb describe-load-balancers --query LoadBalancerDescriptions[*].LoadBalancerName --region eu-west-1 --profile=leap-dev-mgmt --output table > leamt1.txt
+
+aws elb describe-load-balancers --query LoadBalancerDescriptions[*].DNSName --region eu-west-1 --profile=leap-dev-mgmt --output table > leamgmt2.txt
+
+aws elb describe-load-balancers --query LoadBalancerDescriptions[].[LoadBalancerName,Instances[0].InstanceId] --r=eu-west-1 --profile=lea-it --output table >lea-sit-elb.txt
+
+
+aws ssm describe-instance-information --query 'InstanceInformationList[*].[InstanceId,PlatformType,PlatformName]' --output text | sort
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#a=awk -F '[][]' '/^\[/ { print $2 }' ~/.aws/config
+for x in `awk -F '[][]' '/^\[/ { print $2 }' ~/.aws/config`
+print "$x"
+aws ec2 describe-instances --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value |[0], InstanceId,\
+Platform, Placement.AvailabilityZone, InstanceType, LaunchTime, KeyName, State.Name, PrivateIpAddress]' --profile=$x --region eu-west-1 --output table
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
