@@ -1,0 +1,11 @@
+## many User creation at 1 time with incremtented pwd
+f=100
+for x in $(<list);
+do
+f=`expr $f + 1`
+useradd -m -c "cteam" -b /bin/bash $x
+a=`echo $x|sed 's/admin-//g'`
+a=`echo ${x:6}`
+echo "$x:$a#$f" | chpasswd
+chage -M 90 $x
+done
