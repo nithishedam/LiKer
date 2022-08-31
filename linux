@@ -1,0 +1,16 @@
+##Python3 Installation from Source(python website)
+
+wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tar.xz
+tar -vxf Python-3.* 
+cd Python-3.*
+./configure --prefix=/opt/python3
+make
+make install
+sudo ln -s /opt/python3/bin/python3 /usr/bin/python3
+/usr/bin/python3 
+
+
+##Uninstallation steps
+rm -rf /usr/bin/python3  ##Remove the soft Link
+rm -rf /opt/python3      ## Reomve the Installables
+rm -rf /root/python3.4.5 ## Reove the entire package which downloaded
