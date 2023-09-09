@@ -14,3 +14,11 @@ sudo ln -s /opt/python3/bin/python3 /usr/bin/python3
 rm -rf /usr/bin/python3  ##Remove the soft Link
 rm -rf /opt/python3      ## Reomve the Installables
 rm -rf /root/python3.4.5 ## Reove the entire package which downloaded
+
+
+###
+Terraform 
+terraform init
+terraform fmt
+terraform plan
+terraform apply --target=<module-name>
