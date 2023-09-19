@@ -9,6 +9,8 @@ make install
 sudo ln -s /opt/python3/bin/python3 /usr/bin/python3
 /usr/bin/python3 
 
+eval getent passwd {$(awk '/^UID_MIN/ {print $2}' /etc/login.defs)..$(awk '/^UID_MAX/ {print $2}' /etc/login.defs)} | cut -d: -f1 && getent passwd
+HISTTIMEFORMAT="%d/%m/%y %T " && history
 
 ##Uninstallation steps
 rm -rf /usr/bin/python3  ##Remove the soft Link
