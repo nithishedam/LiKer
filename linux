@@ -155,3 +155,140 @@ rpm -qa | grep <name>
 rpm -qi <>    			-> gives installation details and tiemstamp
 rpm -qc					-> config files list
 rpm -ql
+
+
+find . -mtime +2 -delete  	 			## deletes files which are older than 2days
+find . -name 'core*' -mtime +10 
+
+sed '/admin-nedam/d' -i /etc/sudoers  	## remove entry frm sudo files
+
+
+df --block-size=MB 						## Disk space in MB
+==========================================================================================================================================
+##Process##
+
+du -h * | sort -r -h | head
+ps aux --sort=-%mem | head 5
+ps -eo pid,cmd,%cpu,%mem --sort=-%mem
+ -e  -> to display all process
+ -o  -> to display in format
+ 
+swapon <mountpoint>   # swap space will reflect in #free -h cmd
+==========================================================================================================================================
+mkdir /var/lib/rpm/backup
+cp -a /var/lib/rpm/__db* /var/lib/rpm/backup/
+rm -f /var/lib/rpm/__db.[0-9][0-9]*
+rpm --quiet -qa
+rpm --rebuilddb
+yum clean all
+
+==========================================================================================================================================
+
+locate <filename>
+
+
+rpm (pakage naming)
+pkgName-version-release.arch
+kernel-3.10.0-1160.66.1.el7.x86_64
+
+rpm -qa 
+rpm -ql 
+rpm -qf
+rpm -qpR 
+rpm -qi
+rpm -qip
+
+
+Test-commands(https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html)
+if [[ -n string ]]   -->True if the length of "STRING" is non-zero
+if [[ -z string ]]   --> True of the length if "STRING" is zero
+==========================================================================================================================================
+##yum##
+
+yum check-update	##To see which installed packages on your system have updates available
+
+
+yum history
+yum history info <transation Id>
+yum update -y
+yum downgrade <package name>
+
+yum update --security				##To Update only security packages
+==========================================================================================================================================
+##SAR##
+
+memory
+sar -r 
+sar -r 1 3
+sar -r -f /var/log/sa/sa24
+sar -r -f /var/log/sa/sa24 -s hh:mm:ss -e hh:mm:ss
+	-r Memory
+	-f will enanles us to read the sa24 file
+	-s start time 
+	-e end time
+	
+CPU of all cores
+sar -u -f /var/log/sa/sa24	
+
+CPU of individual cores
+sar -P ALL
+sar -P All -f /var/log/sa/sa24
+
+Network stats
+sar -n ALL
+==========================================================================================================================================
+tcpdump -eni any port 53 | 10.8.0.47
+
+==========================================================================================================================================
+
+$0,$1,$2  --> postional argumants passed to script
+$# --> number of arugmrnts passed
+$* --> all the arguments
+"$*" --> sees all arguments as a single string
+"$@" --> Sees all arugments as separate word/string
+$? --> exit status of last command executed in script
+
+
+Error: Multilib version problems found. This often means that the root cause is something else and multilib version checking is just pointing out that there is a problem. Eg.:
+sudo yum erase libselinux.i686
+
+=================================================================================
+
+##python3 Install
+yum groupinstall "Development tools"
+yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+wget https://www.python.org/ftp/python/
+tar -xvf Python-3.4.3.tar.xz
+cd Python-3.4.3
+./configure --prefix=/opt/python3
+make
+make install
+ln -s /opt/python3/bin/python3 /usr/bin/python3
+==========================================================================================================================================
+wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tar.xz
+tar xf Python-3.* 
+cd Python-3.*
+./configure
+cd Python-3.*
+make
+cd /opt
+./configure --prefix=/opt/python3
+make
+make install
+sudo ln -s /opt/python3/bin/python3 /usr/bin/python3
+/usr/bin/python3 
+
+==========================================================================================================================================
+ebs -> snapshot(env)
+
+snapshot--> copy (un-env)
+decrpt the snapshot
+share the snapshot across accounts
+snap-0160984cfd08dad51
+
+
+1.Find the snapshot which you want to share accros the AWS accounts
+2.if its encrypted by AWS manged-encription key(AWS won't allow us to share this key across AWS accounts) then we need to create another copy of snapshot with customer managed encription_keyy.
+3.share that key with another AWS accounts.
+4.share the snapshot with  another AWS account(Actions-> modify policies->shared acccounts)
++++++++++++++++++++
