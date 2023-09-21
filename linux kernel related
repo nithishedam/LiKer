@@ -1,0 +1,87 @@
+[February 5, 2023, 1:20 AM] ‹vinay›: for finding root volume we have created new server right?
+[February 5, 2023, 1:20 AM] ‹vinay›: am i audible?
+[February 5, 2023, 1:21 AM] Amazon Chime: ‹vinay› raised a hand.
+[February 5, 2023, 1:27 AM] K, Peter: sudo mount /dev/nvme3n1p2 /mnt
+[February 5, 2023, 1:28 AM] K, Peter: sudo mount -o nouuid /dev/nvme3n1p2 /mnt
+[February 5, 2023, 1:30 AM] K, Peter: ls -la /mnt/boot
+[February 5, 2023, 1:31 AM] K, Peter: sudo cat /mnt/boot/grub2/grub.conf | grep "vmlinuz"
+[February 5, 2023, 1:34 AM] K, Peter: for i in dev proc sys run; do mount -o bind /$i /mnt/$i; done
+[February 5, 2023, 1:36 AM] K, Peter: chroot /mnt
+[February 5, 2023, 1:36 AM] K, Peter: sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+[February 5, 2023, 1:37 AM] K, Peter: sudo dracut -f -vvvvv
+[February 5, 2023, 1:39 AM] K, Peter: ls -la boot
+[February 5, 2023, 1:41 AM] K, Peter: dracut -f /boot/initramfs-3.10.0-957.99.1.el7.x86_64 3.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 1:42 AM] K, Peter: dracut -f /boot/initramfs-3.10.0-957.99.1.el7.x86_64.img 3.10.0-957.99.1.el7.x86_643.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 1:44 AM] K, Peter: grubby --info=ALL
+[February 5, 2023, 1:45 AM] K, Peter: rpm -qa kernel
+[February 5, 2023, 1:47 AM] K, Peter: uname -r
+[February 5, 2023, 1:49 AM] K, Peter: grubby  --set-default=
+[February 5, 2023, 1:50 AM] K, Peter: grubby --default-kernel
+[February 5, 2023, 1:53 AM] K, Peter: umount /mnt/{dev,proc,run,sys,}
+[February 5, 2023, 2:22 AM] K, Peter: sudo cat /mnt/boot/grub2/grub.conf | grep "vmlinuz"
+[February 5, 2023, 2:22 AM] K, Peter: sudo cat /mnt/boot/grub2/grub.cfg | grep "vmlinuz"
+[February 5, 2023, 2:23 AM] K, Peter: ls -la /mnt/boot
+[February 5, 2023, 2:23 AM] K, Peter: for i in dev proc sys run; do mount -o bind /$i /mnt/$i; done
+[February 5, 2023, 2:25 AM] K, Peter: grubby --info=ALL
+[February 5, 2023, 2:25 AM] K, Peter: grubby --set-default=
+[February 5, 2023, 2:37 AM] K, Peter: dracut -f /boot/initramfs-3.10.0-957.99.1.el7.x86_64.img 3.10.0-957.99.1.el7.x86_643.10.0-957.99.1.el7.x86_64dracut -f /boot/intraf
+[February 5, 2023, 2:38 AM] K, Peter: initramfs-3.10.0-957.99.1.el7.x86_64.img 
+[February 5, 2023, 2:42 AM] K, Peter: sudo dracut --kver 3.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 2:42 AM] ‹Nithish Edam›: [root@ boot]# dracut -f /boot/initramfs-3.10.0-957.99.1.el7.x86_64.img 3.10.0-957.99.1.el7.x86_64.img
+Kernel version 3.10.0-957.99.1.el7.x86_64.img has no module directory /lib/modules/3.10.0-957.99.1.el7.x86_64.img
+[February 5, 2023, 2:44 AM] K, Peter: dracut --list-modules | grep "modules.dep"
+[February 5, 2023, 2:46 AM] K, Peter: depmod -a 3.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 2:48 AM] K, Peter: sudo dracut --kver 3.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 3:07 AM] K, Peter: depmod -a 3.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 3:07 AM] K, Peter: sudo dracut  -f --kver 3.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 3:11 AM] K, Peter: sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+[February 5, 2023, 3:13 AM] K, Peter: sudo dracut -f -vvvvv
+[February 5, 2023, 3:14 AM] K, Peter: cat /boot/grub2/grub.cfg | grep "vmlinuz"
+[February 5, 2023, 3:27 AM] K, Peter: grub2-mkconfig -o /boot/grub2/grub.cfg
+[February 5, 2023, 3:27 AM] K, Peter: sudo dracut  -f --kver 3.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 3:30 AM] K, Peter: umount /mnt/{dev,proc,run,sys,}
+[February 5, 2023, 3:35 AM] K, Peter: mount pseudofilessytem
+[February 5, 2023, 3:37 AM] K, Peter: for i in dev proc sys run; do mount -o bind /$i /mnt/$i; donemount -o nouuid /dev/
+[February 5, 2023, 3:38 AM] K, Peter: chroot /mnt
+[February 5, 2023, 3:38 AM] K, Peter: depmod -a 3.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 3:39 AM] K, Peter: grub2-mkconfig -o /boot/grub2/grub.cfg
+[February 5, 2023, 3:39 AM] K, Peter: sudo dracut  -f --kver 3.10.0-957.99.1.el7.x86_64
+[February 5, 2023, 3:40 AM] K, Peter: grubby --default-kernel
+[February 5, 2023, 3:40 AM] K, Peter: exit
+[February 5, 2023, 3:41 AM] K, Peter: umount /mnt/{dev,proc,run,sys,}
+
+
+=========================================================================================================
+
+Linux KErnel panic conditoon occurs in AWS linux
+
+umount the root volumes in the test ec2
+attach EBS to TEst 
+
+mount the Vol
+mount -o nouuid <> /mnt
+
+
+mount pseudofilessytem
+for i in dev proc sys run; do mount -o bind /$i /mnt/$i; done
+
+chroot /mnt
+
+Install depmod
+depmod -a 3.10.0-957.99.1.el7.x86_64
+
+genearted the GRub
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+Install initrfms
+sudo dracut  -f --kver 3.10.0-957.99.1.el7.x86_64
+
+check the deafult kernel
+grubby --default-kernel
+
+Exit(from chroot)
+
+unmout with below cmd
+umount /mnt/{dev,proc,run,sys,}
+
+dettach& attach
