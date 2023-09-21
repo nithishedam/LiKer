@@ -35,4 +35,17 @@ Platform, Placement.AvailabilityZone, InstanceType, LaunchTime, KeyName, State.N
 
 aws ec2 describe-instances --query Reservations[].Instances[].[Tags[?Key==`Name`].Value |[0].
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+a=id
+b=$(awk -F '[][]' '/^\[/ { print $2 }' ~/.aws/config)
+for x in b;
+do
+c=aws ec2 describe-instances --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value |[0], InstanceId, Platform, Placement.AvailabilityZone, InstanceType, LaunchTime, KeyName, State.Name, PrivateIpAddress]' --profile=$x --region eu-west-1
+for y in `awk '{print $2} $c`;
+do
+if a==c;then
+print y
+if
 
