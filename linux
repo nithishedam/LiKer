@@ -1,3 +1,37 @@
+Linux KErnel panic conditoon occurs in AWS linux
+
+umount the root volumes in the test ec2
+attach EBS to TEst 
+
+mount the Vol
+mount -o nouuid <> /mnt
+
+
+mount pseudofilessytem
+for i in dev proc sys run; do mount -o bind /$i /mnt/$i; done
+
+chroot /mnt
+
+Install depmod
+depmod -a 3.10.0-957.99.1.el7.x86_64
+
+genearted the GRub
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+Install initrfms
+sudo dracut  -f --kver 3.10.0-957.99.1.el7.x86_64
+
+check the deafult kernel
+grubby --default-kernel
+
+Exit(from chroot)
+
+unmout with below cmd
+umount /mnt/{dev,proc,run,sys,}
+
+dettach& attach
+
+=======================================================================================================
 ##Python3 Installation from Source(python website)
 
 wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tar.xz
@@ -18,7 +52,7 @@ rm -rf /opt/python3      ## Reomve the Installables
 rm -rf /root/python3.4.5 ## Reove the entire package which downloaded
 
 id:- dyson-dschaudhary-sa						
-pwd:- Redhat$202
+ Redhat$202
 4qfZOD49W2w!
 =======================================================================================================
 Terraform 
