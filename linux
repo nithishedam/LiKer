@@ -1,4 +1,46 @@
+**Redhat**
+1.Following the purchase of these licences we worked with RedHat and they confirmed \
+that as we are using a RedHat supplied AMI from the AWS marketplace and this includes the use of connecting \
+it to the satellite server.So the RedHat servers deployed in the AWS Landing Zone use this now.
 
+2.We have made some changes to the setup in our RHEL AMIs in AWS that means the \
+RedHat supplied AWS AMIs from the Marketplace are covered by support and connect to our Satellite server. \
+However, in-order to use RedHat Insight we need at least one active subscription. 
+
+3.we’re using Simple Content access view and only renewal of 12793672 of a single License for the future marked in yellow is enough
+
+
+=======================================================================================================
+Satellite-
+used to patch systems ,provison them and provide errata mgmt
+
+vulnerabilities & misconfiguraions
+
+Q:cutomers opening tickets for same problems again&again
+A:Insights- used to analysis of customer's redhat  infra
+  insights runs as client on cutomers systems
+  it runs day & keeps u informed if we find any problems 
+
+Q:if issue /potential issues deteched what insights does?
+A: it gives detailed report on issue and level of risk 
+  gives the list of manual steps to remediate the issue
+
+=======================================================================================================
+customer systems are directly registered with Redhat can find Insights next to customer portal
+
+
+cutomers use satellite systems as focal point for clients registrations (webUI of insights in satellite systems)?
+satellite is able support clients provisioned in no.of ways, well those systems suport insights
+insights client runs on rhel6.4> and above and can also runs on physical/vm/containers 
+
+
+Process for sending Insights data to redhat
+
+
+yum check-update lists all the updates available for your packages. 
+These you would typically upgrade to only if you need the extra functionality, not for security reasons.
+
+=======================================================================================================
 ##Python3 Installation from Source(python website)
 
 wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tar.xz
