@@ -1,0 +1,365 @@
+Amz Rekognition -> Image & video analysis Service
+amz Macie 		-> Data security service, discover & anlyse the sensitive information in your AWS_envi(s3) using ML
+amz Guard_Duty  -> Security monitoring Service your AWS_envi by analysing the data_Sources(cloudTrail mgmt&event_logs,vpc flowlogs,DNS logs) 
+escalation privileages,
+use of exposed creds,
+comm with malicious IP,
+presence of malware in your ec2& containers,
+unsual logins to your DB's,..etc\
+
+amz Inspector -> automated & continous vulnerability mgmt
+
+
+CDN signedURL & signed_cookies gives the same basic functionality: they allow you to control who can access your content.
+
+signedURL
+use of RTMP distibution
+access restrict to individual files
+users use the custom client(http) that doesn't support cookies
+
+signed_cookies
+access to multiple files
+url won't changes
+
+
+ECS can be directly target to CloudWatch-event_rule
+
+
+AWS resource access manager(RAM) feature allow to access resource across multiple AWS_accounts
+consolidate AWS accounts with AWS orgination
+
+IAM entities(iam_user,group,role) or] AWS_resources
+AWS 6-types policies
+1.identity-based
+2.resource-based
+3.permisions
+4.AWS organisation(SCP's)
+5.AWS organisation(ACL)
+6.AWS organisation(session)
+
+RDS 
+by enabling enhanced Monitoring we can view the per_process CPU& Memory usage
+CW gathers metrics about CPU usage from hypervisor
+CW monitoring gives hypervisor level of usage & enhance Monitoring gives the instance level of usage(by using agent), so both will have different
+
+
+SSM_agent -> to manage server from session manager(root/Linux,SYSTEM/windows) to implemnet automation
+CloudWatch_agent  -> to collects the system metrics and Send to CloudWatch logs
+
+
+AWS shield advanced -> to protect application on(Route53,CDN,ELB,Ec2 and integration with WAF ) from DDOS attact{means making the service unavilable to legitimate users}
+
+overall Efficiency of Database depends
+1.indexing
+2.key distribution
+3.data warehosuing design
+4.caching startegies
+
+partion_key  -> pick the clumn which has distinct/uniq attributes{values}
+sort_key     -> 
+attribute    -> value 
+item    -> single row
+
+
+
+with CW-agent 
+1.memory usage
+2.disk space usage
+3.swap usage
+4.page file usage
+5.log collection
+
+
+
+Redis - port-6379
+ec2&redis in same vpc and Sg ports to be open
+bydefault redis is un_encripted connnection
+
+need to enable --tls flag to make authenticated/encripted connection
+
+CORS --cross orign resource sharing
+browser by-deafult denies the (unless its allowed at source)
+Ex-
+2.com is using some static files(css,images) from 1.com
+inorder to fulfill this cors should be enable in 1.com for (2.com)
+
+Throughput mgb/sec   [HDD]
+Iops --> speed IO     [SSD]
+
+WAF{running on CDN} your rules runs on all edge_locations 
+beacuse of WAF on CDN ,  blocks requests stopped before reach to web_servers  
+
+
+WAF{on reginal services} ALB,API_gateway,App_sync 
+
+
+Symmetric --> A single key used for encrypting and decrypting data or generating and verifying HMAC codes
+Asymmetric --> A public and private key pair used for encrypting and decrypting data or signing and verifying messages
+
+
+
+AWS Fsx --> its windows file_share integrates with AD{user authentication & access_control to file_system}
+
+AD
+-AWS managed AD
+-self-managed AD
+
+
+Lambda-
+Lambda can scale faster than the regular Auto Scaling feature of Amazon EC2, Amazon Elastic Beanstalk, or Amazon ECS. This is because AWS Lambda is more lightweight than other computing services. Under the hood, Lambda can run your code to thousands of available AWS-managed EC2 instances (that could already be running) within seconds to accommodate traffic. This is faster than the Auto Scaling process of launching new EC2 instances that could take a few minutes or so. 
+
+
+
+Licence managr
+certificate manager
+system manager fleet
+
+
+
+
+CW-Agent:-
+To collect logs from your Amazon EC2 instances and on-premises servers into CloudWatch Logs, AWS offers both a new unified CloudWatch agent, and an older CloudWatch Logs agent
+-You can collect both logs and advanced metrics with the installation and configuration of just one agent
+
+-RDS
+Amazon RDS Read Replicas provide enhanced performance and durability for database (DB) instances.
+multi-AZ
+DB instance on primary is Active
+synchronous replication
+always span to 2_Az's in region
+Automatic failover to standby when problem detected
+
+
+Read_replica
+Asynchronous replication
+All replicas are accesible and replicas are used for scaling
+can be az's,cross-Az,cross-region
+can be manually promoted to standalone
+
+
+
+ACM -> provision,manage,deploy SSL certs
+
+interms of cost hierarchy
+S3,s3-IA > S3-intelligent-tiering > S3-onezone-IA > glacier > glacier-deep archve
+
+
+redshift spectrum
+s3 select
+Athena
+
+
+
+install cw-agent 
+attach cloudwatchAgentServer role(IAM role)
+monitor metrics
+monitor log_files(creating log-group{cloudwatch} )
+
+
+
+#!/bin/nbash
+yum install httpd -y
+systemctl enable httpd
+mkdir /var/www/html
+echo "<h1> This is returns</h1>" > /var/www/html/orders/index.html
+systemctl start httpd
+
+
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+
+
+
+
+vpc-endpoint to traffice 
+ec2 -> s3 traffic will flow within AWS
+
+
+
+
+amazon MQ
+SQS,SNS --> light-weight messaging fully mnaaged services
+
+
+Athena-
+is way good at running SQL queries on s3 and can store in db's
+
+
+
+asks:-
+cloudtrail logs(tail) are storing in S3 where i don;t have access to it
+ELB -> tg(ec2 /var/www/html/index.html) health-check healthy with tg ,but the ELB link# not-working.
+
+
+s3- access points
+
+SQS  -> Amazon SQS doesn't automatically delete the message.Thus, the consumer must delete the message from the queue after receiving and processing it.
+visibilty timeout {0sec- 12hrs} default-30sec    ## when message is processing the same mesg will not visible to another consumers
+retention period
+default-4days
+you can set{60sec to 14days}
+
+
+Turning the Lambda functions for optimal operations
+
+
+
+ec2 = boto3.resource('ec2' , region_name='eu-west-1')
+
+def 
+instance = ec2.startInstances(InstanceIds = [] )
+
+
+
+
+write a function that finf the 1 of instance from running & stop that
+ ec2 = boto3.resource('ec2',region_name='eu-west-1')
+ instance = ec2.startInstances(instancesIds = [])
+ x= ec2.instances.filter(Filters=[{'Name=
+ 
+ 
+ 8074065770
+ 
+ 
+
+
+
+
+
+download the latest splunk version package into server
+navigate to the /opt directory & unzip the downloaded package 
+ 
+ 
+ Resource
+ 
+ 
+ 
+ {
+ Languages:
+  [
+     {"name":"Java",
+	  "var":"ha"
+	  },
+	  {"name":"python",
+	   "var":he"
+	   }
+   ]
+ }
+ 
+ 
+ ---
+ -host: all
+ -user: nedam
+ -vars:
+      pkgname: httpd
+	  
+ -tasks:
+    - name: install
+	  action: yum name='{{pkgname}}' state=installed
+	  notify: start httpd
+	 
+ -handler:
+    - name:start httpd
+	  action: service name=httpd state=restart 
+	 
+	 
+	 
+	 
+ -tasks:
+    - name: user creation
+	  user: name='{{item}}' state=present
+	  with_items:
+	    -nedam
+	    -vinay
+	    -sarthak
+	   
+	   
+ -tasks:
+    - name: 
+	  command: yum install httpd
+	  when: ansible_os_family == "RedHat"
+	 
+	- name: 
+	  command: apt-get install httpd
+	  when: ansible_os_family == "Debian"
+	  
+	  
+ to encrypt the playbook
+ ansible-vault encrypt <any previously created file-name>
+ ansible-vault create < new-file>
+ ansible-vault edit <file-name>   #which you want to edit
+ 
+ 
+ 
+ Ansible-
+ modules{setup } will run by-default
+ 
+ 1.roles
+ 2.vars
+ 3.tasks
+ 4.handlers
+	   
+	   
+	   
+ JEnkins
+ -git #whenever commit happen
+ -source code building
+ 
+ 
+ 
+Route53
+-DNS(domain register,manage)
+
+
+-
+Docker
+kubsernates
+Jenkins+Ansible
+
+Troubleshoot EKS/ECS issue, identify root cause, and provide theresolution/workaround for the issue
+Designed and implemented highly scalable and available continuous integration and delivery pipelines using tools such as Jenkins, Git, and dock
+
+ Experience in creating Docker files and working with Docker containers. Good knowledge of virtualization and container 
+ 
+____________________________________________________________________
+
+
+ DevOps Engineer with 5 years of hands-on experience automating and optimizing deployments in AWS, Proficient with Container Orchestration tools and in developing CI/CD Pipelines.
+
+• Experience in GIT, Github.
+• Experience in developing and maintaining CI/CD using tools like Git, Jenkins, SonarQube, Nexus, Ansible and AWS Cloud.
+• Understanding of Source Code Management activities like designing, branching guidelines, merging and administrative activities, repository back-up etc.
+• Comprehensive knowledge in using Maven scripts for all the build scripts to automate the Compilation, Deployment.
+• Having good implementation experience with installation and configuration of Kubernetes and Clustering them and managed local deployments in Kubernetes.
+• Provided consistent environment using-Kubernetes for deployment scaling and load balancing to the application from development through production, easing the code development and deployment pipeline by implementing Docker containerization.
+• Designing and implementing Continuous planning, Continuous Integration, Continuous Delivery and Continuous Feedback pipelines.
+• Experience working on several docker Components like Docker Engine, creating Docker Images, Docker Registry and handling multiple images primarily for domain configuration.
+• Managed environments DEV,QA,UAT and NON PROD for various releases and designed instance strategies.
+
+Major skills and tools:
+AWS
+Docker
+Kubernetes
+Jenkins
+Red hat Linux Administration 
+Jboss, Tomcat, Apache
+Shell Scripting
+
+____________________________________________________________________
+
+6+ Years of experience/certified with AWS (AWS Cloud Formation, AWS EC2, S3, VPC, etc.) 
+Strong knowledge of RDS-MS-SQL, ELB, EBS, Cloud Watch, IAM, KMS, Amazon Kinesis, AWS Lambda, Amazon Simple Queue Service (Amazon SQS), Amazon Simple Notification Service (Amazon SNS), and Amazon Simple Workflow Service (Amazon SWF) 
+AWS Certified SA, AWS Cloud Formation, Terraform script dev, AWS EC2 (Windows, Linux), S3, VPC, ALB, NLB, ACM, SG, Lambda, Containers, CI/CD
+Amazon Connect, Lambda in NodeJS/Python dev experience/knowledge will be a plus 
+Strong knowledge of AWS SDK and development experience with one of the programming languages – Java, .Net Strong knowledge with Web Services
+API Gateways and application integration development 
+Design Knowledge of relational and non-relational databases Knowledge of agile software development practices and release management 
+Thorough understanding of Cloud Computing: virtualization technologies, Infrastructure as a Service, Platform as a Service and Software as a Service Cloud delivery models and the current competitive landscape
+Problem Solving: Ability to analyze and resolve complex infrastructure resource and application deployment issues 
+Good knowledge & working Exp in R53, ALB, Network Load Balancers
+Good knowledge in troubleshooting EC2 windows, Linux instances for connectivity issues, and troubleshooting.
+Operating Systems: Windows
+Scripting Skills: Strong scripting (e.g. Python) and automation skills.
+Solid experience as an Engineer in a 24×7 uptime Amazon AWS environment, including automation experience with configuration management tools. 
+Monitoring Tools: Experience with system monitoring tools (e.g. Nagios).
+Version Control: Basic Experience in version control systems such as SVN.
+AWS Architectural Design on EC2, RDS, Multi-AZs Failover capability designs\
