@@ -18,9 +18,140 @@ rm -rf /opt/python3      ## Reomve the Installables
 rm -rf /root/python3.4.5 ## Reove the entire package which downloaded
 
 
-###
+=======================================================================================================
 Terraform 
 terraform init
 terraform fmt
 terraform plan
 terraform apply --target=<module-name>
+
+=======================================================================================================
+tail -n2 <filename>
+logger -p cron.err "cron error message"
+
+sort -n		** sort the numbers  ex- 10,24,50,20000 numbers
+sort -h		** sort the human readables ex- 14Kb,20Gb
+
+
+telnet <IP> 30013
+curl -v telnet://<IP>:30013
+
+vgchange -ay		** with this cmd change the state of lv
+=======================================================================================================
+openssl x509 -in <cert> -serial -nout   	## prints Serial Number
+openssl x509 -in <cert> -dates -nout		##Prints dates
+
+
+=======================================================================================================
+##TO make IP as static though it get reboot(in on_prem)
+
+cat /etc/sysconfig/network-scripts/ifcfg-ens192
+bootproto="none"   --> when we want IP to be static
+ARPCHECK1=no        --> This will not allow any used ip mentioned in this file 
+=======================================================================================================
+nmtui-edit
+=======================================================================================================
+sudo fsck -N /dev/sdb
+echo 1 /sys/block/sdb/device/rescan
+resize2fs /dev/sdb
+========================================================================================================
+
+mount -t cifs -o ,username=,password=,domain=dysonsap.sap,uid=,gid=, //uk-clo-sftp-p01.dyson.online/q42 /cifs/q42
+========================================================================================================
+systemctl enable service			** Enable a service to start on boot
+systemctl show service				** Show properties of a service (or other unit)
+systemctl reload service			
+
+systemctl stop service 				Stop a running service
+systemctl start service 			Start a service
+systemctl restart service 			Restart a running service
+systemctl reload service 			Reload all config files in service
+systemctl daemon-reload 			Must run to reload changed unit files
+systemctl status service 			See if service is running/enabled
+systemctl --failed 					Shows services that failed to run
+systemctl reset-failed 				Resets any units from failed state
+systemctl enable service 			Enable a service to start on boot
+systemctl disable service 			Disable service--won’t start at boot
+systemctl show service 				Show properties of a service (or other unit)
+systemctl edit service 				Create snippit to drop in unit file
+systemctl edit --full service 		Edit entire unit file for service
+systemctl -H host status network	Run any systemctl command remotely
+
+========================================================================================================
+chage -E 90 <username>				** pwd will expire in every 90 days from last password change date
+chage -W 10 <name>					** Before 10 days of pwd expire User will get a Warning to change the pwd
+chage -I 10 <name>					** No.of days b/w pwd expire & pwd locked (This msg won't showup in cmd:- chage -l <name>)
+chage -d 0 							** pwd change in nxt Login
+passwd -e <name>					** pwd will expire next instant
+
+chage -m 1 -M 90 <name>				** pwd expire Maximum no.of days 90 & minumum no.of day =1
+
+
+========================================================================================================
+=NOT(ISERROR(MATCH(cell need to check,on which table,0)))
+=VLOOKUP(A2,,1,FALSE)    # Excel
+
+yum updateinfo list security all		<=== list only patched CVE
+need to check /etc/fstab entries
+exclude the python package from installing 
+yum update exclude=python-s3transfer -y
+========================================================================================================
+NFS Share
+src- add entries into /etc/exports
+
+/hana/backup/HDR *(rw,no_root_squash)
+systemctl start nfs-server.service
+exportfs -v
+
+Dst-
+mount -t nfs source_serverName:/hana/backup/HDR <mountpoint>
+========================================================================================================
+Disk Expansion(sameDisk expansion)
+
+After extending the volume at vmware we run to below command in linux machine to reflect the new size
+echo 1 > /sys/block/sda/device/rescan
+lsblk
+pvresize /dev/sdc
+pvdisplay
+lvextend -L +500G /dev/mapper/rhel-varov
+xfs_growfs /dev/mapper/rhel-varov
+========================================================================================================
+#sosreport
+
+redhat-support-tool addattachment -c CASE_NUMBER /path/to/sosreport
+========================================================================================================
+userdel -r <name>   ** -r removes user along with user home dir
+getent group <groupname>   ** will list the usenames are part of that group
+
+
+useradd -m -c -s /bin/bash "Linux/cloud" -G wheel nedam
+	-m to create default home dir
+	-c comments
+	-G group name which you want to add user
+	-g group id
+	-s shell
+	
+useradd -m -d /home/<username> -c "cloud&Linux team" <username>
+passwd <username>
+add entry in /etc/sudoers file for elevated privilages
+echo "username ALL = (ALL:ALL) ALL" >> /etc/sudoers
+
+usermod -aG <groupname> <username>   ** most often groupname = sudo/wheel
+
+scp -i ~/.ssh/id_rsa.pub FILENAME USER@SERVER:/home/USER/FILENAME
+========================================================================================================
+
+lsof  -> list of all open files
+
+comm -23 <(df -Th | grep -v 'Mounted'|awk '$2 ~ /cifs/ {​​​​print $7}​​​​'|sort) <(awk '$3 ~ /cifs/ {​​​​print $2}​​​​' /etc/fstab|sort) awk '$3 ~ /cifs/ {​​​​print $2}​​​​' /etc/fstab
+
+df -Th | grep -v 'Mounted'|awk '$2 ~ /cifs/ {​​​​print $7}​​​​'
+
+for x in `df -Th | grep -v 'Mounted'|awk '$2 ~ /cifs/ {​​​​print $7}​​​​'`; do if grep -q $x /etc/fstab; then echo ; else echo "N"$x; fi; done
+========================================================================================================
+
+rpm -qa     			->lis all packages
+rpm -qa | grep <name>
+rpm -qi <>    			-> gives installation details and tiemstamp
+rpm -qc					-> config files list
+rpm -ql
