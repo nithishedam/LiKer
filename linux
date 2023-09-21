@@ -17,7 +17,9 @@ rm -rf /usr/bin/python3  ##Remove the soft Link
 rm -rf /opt/python3      ## Reomve the Installables
 rm -rf /root/python3.4.5 ## Reove the entire package which downloaded
 
-
+id:- dyson-dschaudhary-sa						
+pwd:- Redhat$202
+4qfZOD49W2w!
 =======================================================================================================
 Terraform 
 terraform init
