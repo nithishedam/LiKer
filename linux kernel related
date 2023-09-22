@@ -49,8 +49,6 @@ Kernel version 3.10.0-957.99.1.el7.x86_64.img has no module directory /lib/modul
 [February 5, 2023, 3:40 AM] K, Peter: grubby --default-kernel
 [February 5, 2023, 3:40 AM] K, Peter: exit
 [February 5, 2023, 3:41 AM] K, Peter: umount /mnt/{dev,proc,run,sys,}
-
-
 =========================================================================================================
 
 Linux KErnel panic conditoon occurs in AWS linux
@@ -85,3 +83,7 @@ unmout with below cmd
 umount /mnt/{dev,proc,run,sys,}
 
 dettach& attach
+=========================================================================================================
+
+iptables -t nat -A PREROUTING -i ens32 -p tcp --dport 443 -j DNAT --to-destination 127.0.0.1:8443 
+iptables -A FORWARD -i ens32 -m state --state NEW -m tcp -p tcp -d 127.0.0.1 --dport 8443 -j ACCEPT
