@@ -1,0 +1,82 @@
+export MAVEN_HOME=/opt/apache-maven-3.6.3
+export PATH=$PATH:$MAVEN_HOME/bin
+
+
+kubectl get deployments
+kubectl describe deployment <>
+
+kubectl get replicasets
+kubectl describe replicasets
+
+
+kubectl get pods   ##Prints pods in deafult namespaces
+kubectl get namespaces  
+kubectl get ns
+kubectl get pods --namespaces=<> --no-headers | wc -l
+kubectl get pods -n <ns-name>
+
+kubectl run redis --image=redis --namespace=finance
+
+kubectl run redis --image=redis -n finance
+
+kubectl get pods --all-namespace
+kubectl get pods -A
+
+kubectl get services -A
+kubectl get service -n=<>
+
+pod wants to access any service another Namespace
+servicename.namespace.svc.cluster.local
+
+
+
+NOdePort
+Range<30000-32767>
+
+Port is mandatory field
+if you dont mention Nodeport it picks automatically from avilable port from above range
+
+service itself acts as built in LB
+
+
+_______________
+ip netns
+ip netns exec sikkim ifconfig
+ip netns exec linuxhunt ifconfi\g
+ip netns exec sikkim ping 198.162.0.2
+ip netns exec sikkim ping 8.8.8.8
+ip link
+ip link list
+ip netns exec sikkim ip link
+ip -n sikkim link set veth-sik down
+ip netns exec sikkim ip link
+ip link add v-net-0 bridge
+ip link add v-net-0 dev bridge
+ip link add v-net-0 type  bridge
+ip link
+ip link set dev v-net-0 up
+ip -n sikkim delete veth-sik
+ip -n sikkim del veth-sik
+ip -n sikkim link del veth-sik
+ip link veth-sik type veth peer name veth-sik-br
+ip link add veth-sik type veth peer name veth-sik-br
+ip link set veth-sik netns sikkim
+ip link add veth-lin type veth peer name veth-lin-br
+ip link set veth-lin netns linuxhunt
+ip link set veth-sik-br master v-net-0
+ip link set veth-lin-br master v-net-0
+ip netns exec sikkim ip addr add 192.168.15.1 dev veth-sik
+ip netns exec linuxhunt ip addr add 192.168.15.2 dev veth-lin
+ip link
+ip addr add  192.168.15.0/24 dev v-net-0
+ip link set dev v-net-0 up
+ip link set dev veth-sik up
+ip -n sikkim link set dev veth-sik up
+ip -n linuxhunt link set dev veth-lin up
+ip link
+ip netns exec sikkim arp
+ip netns exec sikkim ping 192.168.15.2
+ip netns exec sikkim route
+ip netns exec sikkim ip address
+ip netns exec sikkim ip link list
+--------------------------------------
